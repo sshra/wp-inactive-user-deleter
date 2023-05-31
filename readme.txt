@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/YuriyKing
 Tags: user management, inactive user, delete user, user deleter, user, managment, users managment, delete, multy removal, pack deletion, user cleaner
 Requires at least: 3.1.0
 Tested up to: 6.1.1
-Stable tag: 1.58
+Stable tag: 1.59
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,7 @@ Please feel free to ask here: https://wordpress.org/support/plugin/inactive-user
 
 == Changelog ==
 
+= 1.59 = Updates to protect all form against Cross-Site Request Forgery (CSRF) (requested by Graham aka grl570810).
 = 1.58 = No actual changes, just testing with next core version of WP 6.1.1
 = 1.57 = New filter: Woocommerce anonymous order filter (visible if Woocommerce is active) (requested by Luboslives).
 New action: publish posts of selected users (requested by Fran).

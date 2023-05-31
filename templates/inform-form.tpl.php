@@ -2,6 +2,7 @@
   <form method="POST" action="">
   <input type="hidden" name="op" value="misc" />
   <input type="hidden" name="last-inform" value="<?php echo $OP['last-inform'];?>" />
+  <?php wp_nonce_field('misc_settings'); ?>
   <p>
     There are miscellaneous options to drive plugin. No risks to delete users here.
   </p>

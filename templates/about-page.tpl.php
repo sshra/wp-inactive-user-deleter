@@ -9,6 +9,7 @@
 ?>
   <p>
     <form method="post" >
+    <?php wp_nonce_field('generate_dummies'); ?>
     <input type="hidden" name="op" value="generate" />
     Dummies Number: <input type="text" name="N" value="500" />  <input type="submit" name="op" value="generate" />
     </form>
@@ -19,5 +20,5 @@
   <p>
     <img src="<?= $assetsDir . 'yurbanator.jpg' ?>" /><br />
     <?php echo __('Enjoy, this plugin is free to use.<br /> But you can support author for futher development (actually, for some beer and nuts).')?><br />
-    <iframe src="https://money.yandex.ru/quickpay/shop-widget?writer=seller&targets=WP%20Inactive%20User%20Deleter%20plugin%20thanks&targets-hint=&default-sum=&button-text=14&payment-type-choice=on&comment=on&hint=&successURL=&lang=en&quickpay=shop&account=410011969010464" width="423" height="301" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+    <iframe src="https://yoomoney.ru/quickpay/fundraise/button?billNumber=NIG3iALDkAQ.230531&" width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
   </p>

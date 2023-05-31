@@ -1,11 +1,12 @@
   <form method="POST" action="" style="max-width: 800px">
   <input type="hidden" name="op" value="trial-user" />
+  <?php wp_nonce_field('trial_user_list'); ?>
   <table cellspacing=5 border=0 cellpadding=0>
   <tr><th align="left"></tr>
   <tr>
     <td>
       <p><?php echo __('The trail users deleter tool allows you to configure and to delete users with a specific role after given period of time since registration date.'); ?></p>
-      <p><?=__('Select a trial user role from the list')?>: 
+      <p><?=__('Select a trial user role from the list')?>:
       <select name="trial-role">
         <option value="">-- <?=__('Not selected')?> --</option>
     <?php

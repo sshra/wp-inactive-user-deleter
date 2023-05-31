@@ -2,7 +2,7 @@
 /*
 Plugin Name: Inactive User Deleter
 Plugin URI: https://wordpress.org/plugins/inactive-user-deleter/
-Version: 1.58
+Version: 1.59
 Requires at least: 3.1.0
 Description: When your project lives so long, and website got a lot of fake user's registrations (usually made by spammers, bots, etc). This tool will help you to clean this mess up. You can filter, select and delete users.
 Author: Korol Yuriy aka Shra <to@shra.ru>
@@ -19,7 +19,7 @@ namespace inactive_user_deleter;
 if (!class_exists('InactiveUserDeleter')) {
 class InactiveUserDeleter
 {
-	const actual_version = 1.58;
+	const actual_version = 1.59;
 	const status = 'production';
 	var $ss2_active = null;
   var $woocommerce_active = null;
@@ -254,13 +254,18 @@ Forever yours, Inactive User Deleter.</p>
 
 <form method="POST" action="#outputs" id="inactive-user-deleter-form">
 <?php
+    wp_nonce_field('user-filter');
 	  //output_filter_part
-	  print $this->view('user_filter', array(
+    print $this->view('user_filter', array(
       'ss2_active' => $this->ss2_active,
       'woocommerce_active' => $this->woocommerce_active
     ));
 
     if (!isset($_POST['op'])) $_POST['op'] = 'stand_by';
+    else {
+      if (in_array($_POST['op'], ['disable', 'activate', 'draft', 'publish', 'finally_delete', 'delete', 'search_users']))
+        check_admin_referer( 'user-filter' );
+    }
     require_once dirname(__FILE__) . '/class.users.php';
 
     switch ($_POST['op']) {
@@ -354,12 +359,12 @@ Forever yours, Inactive User Deleter.</p>
         if ( !current_user_can('delete_users') ) {
           __('You can&#8217;t delete users (no permissions). Sorry.... :)');
         } else if ($_POST['op'] == 'finally_delete') {
-				  $OP = self::read_settings();
-				  $confirmPeriod = $_POST['confirmPeriod'] <= 0 ? 1 : $_POST['confirmPeriod'] + 0;
+          $OP = self::read_settings();
+          $confirmPeriod = $_POST['confirmPeriod'] <= 0 ? 1 : $_POST['confirmPeriod'] + 0;
 
           echo __('Deleting...') . '<br />';
           $cnt_deleted = 0;
-   				$cnt_sendmail = 0;
+          $cnt_sendmail = 0;
           foreach($_POST['f_users'] as $user_id_to_delete) {
             //real delete
 
@@ -465,6 +470,7 @@ Forever yours, Inactive User Deleter.</p>
 <div class="sub-page" id="IUD_page_4">
 <?php
   if (!empty($_POST['op']) && $_POST['op'] == 'trial-user') {
+    check_admin_referer( 'trial_user_list' );
     //save and store options
     $trialPeriod = intval($_POST['trial-period']);
     if ($trialPeriod < 0) $trialPeriod = 0;
@@ -488,6 +494,8 @@ Forever yours, Inactive User Deleter.</p>
 <div class="sub-page" id="IUD_page_2">
 <?php
 	if (!empty($_POST['op']) && $_POST['op'] == 'misc') {
+    check_admin_referer( 'misc_settings' );
+
 		//save and store options
 		if ($_POST['informPeriod'] < 0) $_POST['informPeriod'] = 0;
 		$_POST['informPeriod'] = intval($_POST['informPeriod'] + 0);
@@ -519,6 +527,7 @@ Forever yours, Inactive User Deleter.</p>
 <?php
 
   if (self::status != 'production' && $_POST['op'] == 'generate') {
+    check_admin_referer( 'generate_dummies' );
     $this->create_arb_user($_POST['N'] + 0);
   }
   $OP = self::read_settings();
