@@ -1,0 +1,62 @@
+<style>
+nav#IUD_pager {
+	border-bottom: 1px solid #696969;
+	padding: 0 0 0 15px;
+	box-shadow: 0 3px 0px #ccc;
+}
+nav#IUD_pager div {
+	background: #FFF;
+	-webkit-box-shadow: 0 1px 0 #696969;
+	box-shadow: 0 1px 0 #696969;
+	color: #000;
+	text-decoration: none;
+	display: inline-block;
+	text-decoration: none;
+	font-size: 20px;
+	line-height: 30px;
+	height: 32px;
+	margin: 0 5px 0 0;
+	padding: 0 20px 1px;
+	cursor: pointer;
+	border: 1px solid #696969;
+	border-bottom: 0;
+	border-radius: 3px 3px 0 0 ;
+	white-space: nowrap;
+}
+nav#IUD_pager div.active {
+	background: #008ec2;
+	color: #FFF;		
+}
+
+.sub-page .section-title {
+	font-size: 1.4em;
+	font-weight: bold;
+	margin: 10px 0;	
+}
+
+.sub-page {
+	padding: 0 0 0 15px;
+	display: none;
+	font-size: 16px;
+	line-height: 24px;
+}
+.sub-page p {
+	line-height: 24px;
+	font-size: 16px;
+}
+.sub-page small *,
+.sub-page small { 
+	line-height: 14px;
+	font-size: 13px;
+} 
+
+#IUD_area input[type="text"] {
+	text-align: center;
+	
+}
+#wpbody-content .button-primary {
+	margin-top: 15px;
+	
+}
+
+</style>
