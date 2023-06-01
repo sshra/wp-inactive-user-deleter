@@ -1,10 +1,10 @@
 === Inactive User Deleter ===
 Contributors: shra
-Donate link: https://www.paypal.me/YuriyKing
+Donate link: https://yoomoney.ru/to/410011969010464
 Tags: user management, inactive user, delete user, user deleter, user, managment, users managment, delete, multy removal, pack deletion, user cleaner
 Requires at least: 3.1.0
 Tested up to: 6.1.1
-Stable tag: 1.59
+Stable tag: 1.60
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,7 @@ Please feel free to ask here: https://wordpress.org/support/plugin/inactive-user
 
 == Changelog ==
 
+= 1.60 = Fix for PHP 8.0 Warning: Undefined array key "confirmPeriod" (requested by Hellnik).
 = 1.59 = Updates to protect all form against Cross-Site Request Forgery (CSRF) (requested by Graham aka grl570810).
 = 1.58 = No actual changes, just testing with next core version of WP 6.1.1
 = 1.57 = New filter: Woocommerce anonymous order filter (visible if Woocommerce is active) (requested by Luboslives).
