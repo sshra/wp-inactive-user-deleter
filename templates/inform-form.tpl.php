@@ -1,7 +1,7 @@
 
   <form method="POST" action="">
   <input type="hidden" name="op" value="misc" />
-  <input type="hidden" name="last-inform" value="<?php echo $OP['last-inform'];?>" />
+  <input type="hidden" name="last-inform" value="<?php echo intval($OP['last-inform']);?>" />
   <?php wp_nonce_field('misc_settings'); ?>
   <p>
     There are miscellaneous options to drive plugin. No risks to delete users here.
@@ -18,8 +18,8 @@
   <tr style="display: <?php echo  empty($OP['informME']) ? 'none' : 'table-row' ?>">
     <td>&nbsp;</td>
     <td>
-    <?php echo __('Send report every')?> <input id="informPeriod" size="2" maxlength="4" type="text" name="informPeriod" value="<?php echo $OP['informPeriod']?>" /> <?php echo __('day(s)')?>
-    <?php echo __('when inactive user number will be at least')?> <input id="informUsersNumber" size="2" maxlength="4" type="text" name="informUsersNumber" value="<?php echo $OP['informUsersNumber']?>" />.<br/>
+    <?php echo __('Send report every')?> <input id="informPeriod" size="2" maxlength="4" type="text" name="informPeriod" value="<?php echo intval($OP['informPeriod'])?>" /> <?php echo __('day(s)')?>
+    <?php echo __('when inactive user number will be at least')?> <input id="informUsersNumber" size="2" maxlength="4" type="text" name="informUsersNumber" value="<?php echo intval($OP['informUsersNumber'])?>" />.<br/>
     <?php echo __('I will use this email'). ' : <b>'
     . get_option('admin_email', '<a href="' . admin_url('options-general.php') . '">SETUP email value here</a>')
     . '</b>.<br />';?>
@@ -41,7 +41,7 @@
     ?></p>
     <p>
     <?=__('Confirmation period')?>:
-    <input id="confirmPeriod" size="2" maxlength="4" type="text" name="confirmPeriod" value="<?php echo $OP['confirmPeriod']?>" /> <?php echo __('day(s)')?>.
+    <input id="confirmPeriod" size="2" maxlength="4" type="text" name="confirmPeriod" value="<?php echo intval($OP['confirmPeriod'])?>" /> <?php echo __('day(s)')?>.
     </p>
     <p>
     <?=__('Letter of confirmation template')?>:<br />

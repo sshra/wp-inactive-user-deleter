@@ -4,7 +4,7 @@ Donate link: https://yoomoney.ru/to/410011969010464
 Tags: user management, inactive user, delete user, user deleter, user, managment, users managment, delete, multy removal, pack deletion, user cleaner
 Requires at least: 3.1.0
 Tested up to: 6.1.1
-Stable tag: 1.60
+Stable tag: 1.61
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,7 @@ Please feel free to ask here: https://wordpress.org/support/plugin/inactive-user
 
 == Changelog ==
 
+= 1.61 = Continue security fixing started at 1.59 (thanks FearZzZz).
 = 1.60 = Fix for PHP 8.0 Warning: Undefined array key "confirmPeriod" (requested by Hellnik).
 = 1.59 = Updates to protect all form against Cross-Site Request Forgery (CSRF) (requested by Graham aka grl570810).
 = 1.58 = No actual changes, just testing with next core version of WP 6.1.1
@@ -64,7 +65,7 @@ Filter by UserRole was added (feature was requested by sonfisher).
 = 1.3 = Added some features and few filters. Thanks to Greg Ross for new ideas.
 = 1.2 = Plugin resurrection. :) I have done some requested features, fixed bugs, and fully rewrote code.
 = 1.1 = Plugin renovation. Bug fixing, some new options.
-= 1.0 = It was a start version. Everything is new :).
+= 1.0 = It was an initial version. Everything.
 
 == Upgrade Notice ==
 
