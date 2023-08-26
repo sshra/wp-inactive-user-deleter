@@ -55,13 +55,13 @@
   <td align="center" valign="top">
     <label for="flag_has_recs_nomatter">
       <input id="flag_has_recs_nomatter" type="radio" name="has_recs" value="0" <?php echo empty($_POST['has_recs']) ? 'checked' : '' ?> />
-    <?=__('No matter')?></label>
+    <?php echo __('No matter')?></label>
     <label for="flag_has_recs_no">
       <input id="flag_has_recs_no" type="radio" name="has_recs" value="no" <?php echo $_POST['has_recs'] === 'no' ? 'checked' : '' ?> />
-    <?=__('No')?></label>
+    <?php echo __('No')?></label>
     <label for="flag_has_recs_yes">
       <input id="flag_has_recs_yes" type="radio" name="has_recs" value="yes" <?php echo $_POST['has_recs'] === 'yes' ? 'checked' : '' ?> />
-    <?=__('Yes')?></label>
+    <?php echo __('Yes')?></label>
   </td>
   <td>
     <?php echo __('... (!Achtung) records or posts.')?><br />
@@ -103,7 +103,7 @@
   </td>
   <td>
     <?php echo __('... known date log-in.')?> <br />
-    <small><?php echo __('This flag adds users with known log-in date to list. Log-in date isn`t a native WP variable. So it will be collected while this module is activated or can be used data provided by one of the next plugins: 
+    <small><?php echo __('This flag adds users with known log-in date to list. Log-in date isn`t a native WP variable. So it will be collected while this module is activated or can be used data provided by one of the next plugins:
       <a href="https://wordpress.org/plugins/wp-last-login/" target="_blank">WP Last Login</a>,
       <a href="https://wordpress.org/plugins/user-login-history/" target="_blank">User Login History</a>,
       <a href="https://wordpress.org/plugins/when-last-login/" target="_blank">When Last Login</a>,
@@ -133,7 +133,7 @@
   <td colspan="2">
     <div class="section-title"><?=__('Filters')?></div>
     <hr width=50% align="left"/>
-    <label for="usernameFilter"><?php echo __('User name') ?></label>    
+    <label for="usernameFilter"><?php echo __('User name') ?></label>
     <input type="text" size="15" name="username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '' ?>" id="usernameFilter" />
     <br />
     <small><?php echo __('To refine user\'s list by user login.')?></small>
@@ -221,7 +221,6 @@
   }
 ?>
     </select> <?php echo __('recs.')?><br />
-    <small><?php echo  __('PHP allows you sent only'). ' ' . ini_get('max_input_vars') . ' ' . __('input vars.')?></small>
   </td>
 </tr>
 <tr>
@@ -249,11 +248,12 @@
 <tr><td colspan="2">
   <input class="button-primary" type="submit" value="<?php echo __('Search')?>" />
   <button class="button-primary" onclick="
-    window.open('<?php echo admin_url("admin-ajax.php")?>' 
-      + '?action=iud_getCsvUserList&' 
+    window.open('<?php echo admin_url("admin-ajax.php")?>'
+      + '?action=iud_getCsvUserList&'
       + jQuery('#inactive-user-deleter-form').serialize());
     return false;"><?php echo __('Export to CSV')?></button>
 </td></tr>
 </table>
+<textarea type="hidden" name="f_users" style="display: none"></textarea>
 <a name="outputs"></a>
 

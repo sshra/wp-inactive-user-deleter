@@ -3,7 +3,7 @@
   <div data-page="IUD_page_1"><?php echo  __('Find & Wipe')?></div>
   <div data-page="IUD_page_4" id="trial-button"><?php echo  __('Trial users')?></div>
   <div data-page="IUD_page_2" id="misc-button"><?php echo  __('Misc')?></div>
-  <div data-page="IUD_page_3"><?php echo  __('About plugin')?></div>
+  <div data-page="IUD_page_3"><?php echo  __('About')?></div>
 </nav>
 
 <script>

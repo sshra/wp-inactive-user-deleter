@@ -3,8 +3,8 @@ Contributors: shra
 Donate link: https://yoomoney.ru/to/410011969010464
 Tags: user management, inactive user, delete user, user deleter, user, managment, users managment, delete, multy removal, pack deletion, user cleaner
 Requires at least: 3.1.0
-Tested up to: 6.1.1
-Stable tag: 1.61
+Tested up to: 6.3
+Stable tag: 1.62
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,7 @@ Please feel free to ask here: https://wordpress.org/support/plugin/inactive-user
 
 == Changelog ==
 
+= 1.62 = Minor changes and fixes, testing with next core version of WP 6.3, and update discussed with @timmoser: now PHP max_input_vars limitation is not an issue.
 = 1.61 = Continue security fixing started at 1.59 (thanks FearZzZz).
 = 1.60 = Fix for PHP 8.0 Warning: Undefined array key "confirmPeriod" (requested by Hellnik).
 = 1.59 = Updates to protect all form against Cross-Site Request Forgery (CSRF) (requested by Graham aka grl570810).

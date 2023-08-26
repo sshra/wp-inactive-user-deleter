@@ -1,42 +1,37 @@
 
-  <p><b><?php echo  count($user_list) ?> <?php
+  <p><strong><?php echo  count($user_list) ?> <?php
     echo __('record(s) are shown.');
     if ($total > count($user_list)) {
       echo ' ' . $total . ' ' . __('are found total.');
     }
-?></b></p>
+?></strong></p>
   <hr><?php echo  __('Check this list') ?>.
-  <input type="button" value="<?php echo  __('Mark all') ?>" onclick="IUD_markALL(this.form['f_users[]']);" />
-  <input type="button" value="<?php echo  __('Unmark all') ?>" onclick="IUD_unmarkALL(this.form['f_users[]']);" />
+  <input type="button" value="<?php echo  __('Mark all') ?>" onclick="IUD_actions('markALL');" />
+  <input type="button" value="<?php echo  __('Unmark all') ?>" onclick="IUD_actions('unmarkALL');" />
   <?php echo  __('When everything is ready') ?> -
   <input type="button" class="button-secondary-red" value="<?php echo  __('Delete all marked users') ?>" onclick="
       if (confirm('Yes, I really want to delete all marked users.')) {
-        this.form.op.value='delete';
-        this.form.submit();
+        IUD_actions('delete');
       }
     "/>
   <input type="button" class="button-secondary-red" value="<?php echo __('Disable users') ?>" onclick="
       if (confirm('Yes, disable all marked users.')) {
-        this.form.op.value='disable';
-        this.form.submit();
+        IUD_actions('disable');
       }
     "/>
   <input type="button" class="button-primary" value="<?php echo __('Enable users') ?>" onclick="
       if (confirm('Yes, activate all marked users.')) {
-        this.form.op.value='activate';
-        this.form.submit();
+        IUD_actions('activate');
       }
     "/>
   <input type="button" class="button-secondary-red" value="<?php echo __('Draft posts') ?>" onclick="
       if (confirm('Yes, unpublush all their posts.')) {
-        this.form.op.value='draft';
-        this.form.submit();
+        IUD_actions('draft');
       }
     "/>
   <input type="button" class="button-primary" value="<?php echo __('Publush posts') ?>" onclick="
       if (confirm('(Be carefull, it will publish all posts of users from the list!) I understand all risks, publush all their posts.')) {
-        this.form.op.value='publish';
-        this.form.submit();
+        IUD_actions('publish');
       }
     "/>
 
@@ -77,7 +72,7 @@
         if ($isAdministrator || $UR['ID'] == 1) {
           echo "-";
         } else {
-          echo "<input type=\"checkbox\" name=\"f_users[]\" value=\"$UR[ID]\"/ "
+          echo "<input type=\"checkbox\" name=\"f_users[]\" data-user=\"\" value=\"$UR[ID]\"/ "
           . (isset($_POST['f_users']) && in_array($UR['ID'], $_POST['f_users']) ? 'checked' : '')
           . ">";
         }
@@ -109,17 +104,68 @@
     }
 ?>
   <script>
-    function IUD_markALL(f_elm) {
-      if (f_elm.length > 0) {
-        for(i=0; i<f_elm.length; i++)
-          f_elm[i].checked = true;
-      } else f_elm.checked = true;
-    }
-    function IUD_unmarkALL(f_elm) {
-      if (f_elm.length > 0) {
-        for(i=0; i<f_elm.length; i++)
-          f_elm[i].checked = false;
-      } else f_elm.checked = false;
+    function IUD_actions(command) {
+      const form = jQuery('#inactive-user-deleter-form').get(0);
+      const f_elm = jQuery('[data-user]');
+
+      const elms = [];
+      const ch_elm = jQuery('[data-user]:checked').each((i, elm) => {
+        elms.push(parseInt(elm.value));
+      });
+      form.f_users.value = JSON.stringify(elms);
+
+      switch (command) {
+        case 'markALL':
+          if (f_elm.length > 0) {
+            for (let i = 0; i < f_elm.length; i++)
+              f_elm[i].checked = true;
+          } else
+            f_elm.checked = true;
+          break;
+
+        case 'unmarkALL':
+          if (f_elm.length > 0) {
+            for(let i = 0; i < f_elm.length; i++)
+              f_elm[i].checked = false;
+          } else
+            f_elm.checked = false;
+          break;
+
+        case 'cancel':
+          form.op.value = 'search_users';
+          form.submit();
+          break;
+
+        case 'delete':
+          form.op.value = 'delete';
+          form.submit();
+          break;
+
+        case 'finally_delete':
+          form.op.value='finally_delete';
+          form.submit();
+          break;
+
+        case 'disable':
+          form.op.value = 'disable';
+          form.submit();
+          break;
+
+        case 'activate':
+          form.op.value = 'activate';
+          form.submit();
+          break;
+
+        case 'publish':
+          form.op.value = 'publish';
+          form.submit();
+          break;
+
+        case 'draft':
+          form.op.value = 'draft';
+          form.submit();
+          break;
+      }
     }
   </script>
 

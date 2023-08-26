@@ -1,8 +1,9 @@
 
   <p>
-    <b>Version: <?php echo $version ?><br />
-    <?php echo __('Developer')?>: <a href="http://shra.ru" rel="nofollow" target="_blank" >Korol Yuriy aka SHRA</a><br />
+    <strong>Version: <?php echo $version ?><br />
+    <?php echo __('Developer')?>: <a href="https://shra.ru" rel="nofollow" target="_blank" >Korol Yuriy aka SHRA</a><br />
     <?php echo __('Plugin page')?>: <a href="https://wordpress.org/plugins/inactive-user-deleter/" rel="nofollow" target="_blank" >wordpress.org/plugins/inactive-user-deleter</a><br />
+    </strong>
   </p>
 <?php
   if ($status != 'production') {
@@ -18,7 +19,22 @@
   }
 ?>
   <p>
-    <img src="<?= $assetsDir . 'yurbanator.jpg' ?>" /><br />
-    <?php echo __('Enjoy, this plugin is free to use.<br /> But you can support author for futher development (actually, for some beer and nuts).')?><br />
-    <iframe src="https://yoomoney.ru/quickpay/fundraise/button?billNumber=NIG3iALDkAQ.230531&" width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+    <img src="<?php echo $assetsDir . 'yurbanator.jpg' ?>" width="150"/>
+    <p>
+    <?php
+      echo __('Enjoy, this plugin is always free for any your purpose.');
+      echo '<br />';
+      echo __('But you may say `thank you, author` through donations for futher development (honestly, for some beer and nuts).');
+      echo '<br />';
+      echo __('Support forum page to resolve an issues:')
+        .  ' <a href="https://wordpress.org/support/plugin/inactive-user-deleter/" target="_blank">' . __('Get Support') . '</a>.'
+    ?>
+    </p>
+    <h3>Bitcoin Wallet Address (for donations)</h3>
+    <pre>
+bc1q75h2apyfk9vwr30849pdr33cq8pje04ypkcse5
+    </pre>
+    <p>
+      <img src="<?php echo $assetsDir . 'btc-wallet.jpg' ?>" />
+    </p>
   </p>

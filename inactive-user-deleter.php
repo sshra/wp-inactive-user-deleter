@@ -2,7 +2,7 @@
 /*
 Plugin Name: Inactive User Deleter
 Plugin URI: https://wordpress.org/plugins/inactive-user-deleter/
-Version: 1.61
+Version: 1.62
 Requires at least: 3.1.0
 Description: When your project lives so long, and website got a lot of fake user's registrations (usually made by spammers, bots, etc). This tool will help you to clean this mess up. You can filter, select and delete users.
 Author: Korol Yuriy aka Shra <to@shra.ru>
@@ -19,7 +19,7 @@ namespace inactive_user_deleter;
 if (!class_exists('InactiveUserDeleter')) {
 class InactiveUserDeleter
 {
-	const actual_version = 1.61;
+	const actual_version = 1.62;
 	const status = 'production';
 	var $ss2_active = null;
   var $woocommerce_active = null;
@@ -67,8 +67,8 @@ class InactiveUserDeleter
 	* Last visit data
 	*/
 	public function last_successful_authorization($login) {
-		$user = get_userdatabylogin($login);
-		update_usermeta($user->ID, 'last_login_gtm', time());
+		$user = get_user_by('login', $login);
+		update_user_meta($user->ID, 'last_login_gtm', time());
 	}
 
 	public function login_hook($user_login, $user ) {
@@ -260,7 +260,9 @@ Forever yours, Inactive User Deleter.</p>
       'ss2_active' => $this->ss2_active,
       'woocommerce_active' => $this->woocommerce_active
     ));
-
+?>
+</form>
+<?php
     if (!isset($_POST['op'])) $_POST['op'] = 'stand_by';
     else {
       if (in_array($_POST['op'], ['disable', 'activate', 'draft', 'publish', 'finally_delete', 'delete', 'search_users']))
@@ -268,9 +270,13 @@ Forever yours, Inactive User Deleter.</p>
     }
     require_once dirname(__FILE__) . '/class.users.php';
 
+    if (isset($_POST['f_users'])) {
+      $_POST['f_users'] = json_decode($_POST['f_users'], true);
+    }
+
     switch ($_POST['op']) {
     case 'stand_by':
-      //i like it
+      // i like it
       break;
     case 'disable':
       // disable accounts
@@ -284,7 +290,7 @@ Forever yours, Inactive User Deleter.</p>
         if ($result === false) {
           $tm = get_user_meta($user_id_to_disable, '_IUD_userBlockedTime', true);
           if (!$tm) {
-            update_usermeta($user_id_to_disable, '_IUD_userBlockedTime', time());
+            update_user_meta($user_id_to_disable, '_IUD_userBlockedTime', time());
             $cnt_disabled ++;
           }
         } else {
@@ -539,7 +545,7 @@ Forever yours, Inactive User Deleter.</p>
     'OP' => $OP,
     'version' => self::actual_version,
     'status' => self::status,
-    'assetsDir' => plugin_dir_url(__FILE__),
+    'assetsDir' => plugin_dir_url(__FILE__) . 'assets/',
   ));
 
 ?>
