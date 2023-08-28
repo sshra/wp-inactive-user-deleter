@@ -2,7 +2,7 @@
 /*
 Plugin Name: Inactive User Deleter
 Plugin URI: https://wordpress.org/plugins/inactive-user-deleter/
-Version: 1.62
+Version: 1.63
 Requires at least: 3.1.0
 Description: When your project lives so long, and website got a lot of fake user's registrations (usually made by spammers, bots, etc). This tool will help you to clean this mess up. You can filter, select and delete users.
 Author: Korol Yuriy aka Shra <to@shra.ru>
@@ -19,7 +19,7 @@ namespace inactive_user_deleter;
 if (!class_exists('InactiveUserDeleter')) {
 class InactiveUserDeleter
 {
-	const actual_version = 1.62;
+	const actual_version = 1.63;
 	const status = 'production';
 	var $ss2_active = null;
   var $woocommerce_active = null;
@@ -288,11 +288,7 @@ Forever yours, Inactive User Deleter.</p>
         $result = \inactive_user_deleter\users::isVIPUser($user_id_to_disable);
 
         if ($result === false) {
-          $tm = get_user_meta($user_id_to_disable, '_IUD_userBlockedTime', true);
-          if (!$tm) {
-            update_user_meta($user_id_to_disable, '_IUD_userBlockedTime', time());
-            $cnt_disabled ++;
-          }
+          $cnt_disabled += \inactive_user_deleter\users::disable($user_id_to_disable) ? 1 : 0;
         } else {
           echo $result . '<br />';
         }
@@ -312,11 +308,7 @@ Forever yours, Inactive User Deleter.</p>
 
       $cnt_enabled = 0;
       foreach($_POST['f_users'] as $user_id_to_enable) {
-        $tm = get_user_meta($user_id_to_enable, '_IUD_userBlockedTime', true);
-        if ($tm) {
-          delete_user_meta($user_id_to_enable, '_IUD_userBlockedTime');
-          $cnt_enabled ++;
-        }
+        $cnt_enabled += \inactive_user_deleter\users::enable($user_id_to_enable) ? 1 : 0;
       }
 
       //output actions status

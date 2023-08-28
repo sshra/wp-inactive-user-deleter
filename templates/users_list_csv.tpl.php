@@ -1,7 +1,7 @@
 <?php
 
   $outputHandler = fopen('php://output', 'w');
-  fputcsv($outputHandler, 
+  fputcsv($outputHandler,
     array(
       '#',
       __('Login'),
@@ -26,13 +26,16 @@
     $UR['USL'] = @unserialize($UR['USL']);
     //last_login_classipress date preferable
     $last_login = $UR['last_login_classipress'] ? strtotime($UR['last_login_classipress']) : $UR['last_login'];
-    $status = $UR['disabled_time'] ? __('blocked') . date(' [Y-m-d]', $UR['disabled_time']) : __('active');
+
+    $status = $UR['disabled_time'] || $UR['disabled']
+    ? ( __('blocked') . ($UR['disabled_time'] ? date(' [d M Y]', $UR['disabled_time']) : '' ))
+    : __('active');
     if (!empty($UR['removetime'])) {
       $status .= ', to be deleted';
     }
 
     $row = array(
-      $i, 
+      $i,
       $login,
       $UR['mail'],
       $status,

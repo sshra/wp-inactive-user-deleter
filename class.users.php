@@ -3,7 +3,9 @@
 namespace inactive_user_deleter;
 
 class users {
-  
+
+  private static $disabled_user_login_key = '_is_disabled';
+
   static function isAdministrator($userID) {
     global $wpdb;
     $cap = get_user_meta( $userID, $wpdb->get_blog_prefix() . 'capabilities', true );
@@ -47,7 +49,7 @@ class users {
         SELECT WP.ID
         FROM $wpdb->posts WP
         INNER JOIN $wpdb->users WU ON WP.post_author = WU.ID
-        WHERE NOT WP.post_type in ('attachment', 'revision') AND post_status = 'draft' 
+        WHERE NOT WP.post_type in ('attachment', 'revision') AND post_status = 'draft'
           AND WU.ID IN (" . implode(',', $verifiedUserList) . ")";
       $posts = $wpdb->get_results($query);
       $count = count($posts);
@@ -86,7 +88,7 @@ class users {
         SELECT WP.ID
         FROM $wpdb->posts WP
         INNER JOIN $wpdb->users WU ON WP.post_author = WU.ID
-        WHERE NOT WP.post_type in ('attachment', 'revision') AND post_status = 'publish' 
+        WHERE NOT WP.post_type in ('attachment', 'revision') AND post_status = 'publish'
           AND WU.ID IN (" . implode(',', $verifiedUserList) . ")";
       $posts = $wpdb->get_results($query);
       $count = count($posts);
@@ -106,6 +108,48 @@ class users {
     return $count;
   }
 
+  // activate / enable user
+  static function enable($user_id) {
+    $tm = get_user_meta($user_id, '_IUD_userBlockedTime', true);
+    $result = false;
+    if ($tm) {
+      delete_user_meta($user_id, '_IUD_userBlockedTime');
+      $result = true;
+    }
+    if (is_plugin_active('disable-user-login/disable-user-login.php')) {
+      $disabled = get_user_meta( $user_id, self::$disabled_user_login_key, true );
+      if ( $disabled == '1' ) {
+        update_user_meta( $user_id, self::$disabled_user_login_key, 0);
+        $result = true;
+      }
+    }
+    if ($result) {
+      do_action( 'disable_user_login.user_enabled', $user_id );
+    }
+    return $result;
+  }
+
+  // disable user
+  static function disable($user_id) {
+    $tm = get_user_meta($user_id, '_IUD_userBlockedTime', true);
+    $result = false;
+    if (!$tm) {
+      update_user_meta($user_id, '_IUD_userBlockedTime', time());
+      $result = true;
+    }
+    if (is_plugin_active('disable-user-login/disable-user-login.php')) {
+      $disabled = get_user_meta( $user_id, self::$disabled_user_login_key, true );
+      if ( $disabled !== '1' ) {
+        update_user_meta( $user_id, self::$disabled_user_login_key, 1);
+        $result = true;
+      }
+    }
+    if ($result) {
+      do_action( 'disable_user_login.user_disabled', $user_id );
+    }
+    return $result;
+  }
+
   //get inactive user by number posts - no comments, no posts
   static function countInactiveUsers() {
     global $wpdb;
@@ -121,7 +165,7 @@ class users {
       HAVING COUNT(WC.comment_ID) = 0 ";
 
     return count($wpdb->get_results($query));
-  }        
+  }
 
   static function getUsersList($ARGS = array(), $environment) {
       global $wpdb;
@@ -134,11 +178,12 @@ class users {
         "LEFT JOIN {$wpdb->prefix}comments WC ON WC.user_id = WU.ID",
         "LEFT JOIN {$wpdb->prefix}usermeta WUCAP ON WUCAP.user_id = WU.ID AND WUCAP.meta_key = 'wp_capabilities'",
         "LEFT JOIN {$wpdb->prefix}usermeta WUMD ON WUMD.user_id = WU.ID AND WUMD.meta_key = '_IUD_deltime'",
-        "LEFT JOIN {$wpdb->prefix}usermeta WUMDIS ON WUMDIS.user_id = WU.ID AND WUMDIS.meta_key = '_IUD_userBlockedTime'"        
+        "LEFT JOIN {$wpdb->prefix}usermeta WUMDIS ON WUMDIS.user_id = WU.ID AND WUMDIS.meta_key = '_IUD_userBlockedTime'",
+        "LEFT JOIN {$wpdb->prefix}usermeta WUMDUL ON WUMDUL.user_id = WU.ID AND WUMDUL.meta_key = '" . self::$disabled_user_login_key . "'"
       );
 
       $havings = array();
-      $groupBy = array('WU.ID, WU.user_login, WU.user_email, WU.user_url, WU.user_registered, WU.display_name, WUCAP.meta_value, WUM21.meta_value, WUMD.meta_value, WUMDIS.meta_value');
+      $groupBy = array('WU.ID, WU.user_login, WU.user_email, WU.user_url, WU.user_registered, WU.display_name, WUCAP.meta_value, WUM21.meta_value, WUMD.meta_value, WUMDIS.meta_value, WUMDUL.meta_value');
 
       if (!empty($ARGS['f_approve'])) {
         //user with approved comments
@@ -158,10 +203,20 @@ class users {
       }
 
       if (!empty($ARGS['f_userdisabled'])) {
-        if ($ARGS['f_userdisabled'] === 'yes') {
-          $conditions[] = "WUMDIS.meta_value > 0";
+        if (is_plugin_active('disable-user-login/disable-user-login.php')) {
+          if ($ARGS['f_userdisabled'] === 'yes') {
+            $conditions[] = "WUMDIS.meta_value > 0 OR WUMDUL.meta_value > 0";
+          } else {
+            $conditions[] = "((WUMDIS.meta_value is NULL OR WUMDIS.meta_value = 0)
+              AND (WUMDUL.meta_value is NULL OR WUMDUL.meta_value = 0))";
+          }
+
         } else {
-          $conditions[] = "(WUMDIS.meta_value is NULL OR WUMDIS.meta_value = 0)";
+          if ($ARGS['f_userdisabled'] === 'yes') {
+            $conditions[] = "WUMDIS.meta_value > 0";
+          } else {
+            $conditions[] = "(WUMDIS.meta_value is NULL OR WUMDIS.meta_value = 0)";
+          }
         }
       }
 
@@ -185,12 +240,12 @@ class users {
 
       if ($environment->woocommerce_active && !empty($ARGS['has_orders'])) {
         if ($ARGS['has_orders'] === 'yes') {
-          $conditions[] = "EXISTS (SELECT * FROM {$wpdb->prefix}posts WP 
+          $conditions[] = "EXISTS (SELECT * FROM {$wpdb->prefix}posts WP
           INNER JOIN {$wpdb->prefix}postmeta WPM ON WPM.meta_key = '_billing_email' AND WPM.post_id = WP.ID
           WHERE WPM.meta_value like WU.user_email AND WP.post_type = 'shop_order')";
         } else {
           //ignore user with orders
-          $conditions[] = "NOT EXISTS (SELECT * FROM {$wpdb->prefix}posts WP 
+          $conditions[] = "NOT EXISTS (SELECT * FROM {$wpdb->prefix}posts WP
           INNER JOIN {$wpdb->prefix}postmeta WPM ON WPM.meta_key = '_billing_email' AND WPM.post_id = WP.ID
           WHERE WPM.meta_value like WU.user_email AND WP.post_type = 'shop_order')";
         }
@@ -265,6 +320,7 @@ class users {
         SELECT SQL_CALC_FOUND_ROWS SUM(WC.comment_approved = 1) as approved, SUM(WC.comment_approved = 'spam') as spam,
           WU.ID, WU.user_login as login, WU.user_email as mail, WU.user_url as url, WU.user_registered as dt_reg, WU.display_name as name,
           WUMDIS.meta_value as disabled_time,
+          WUMDUL.meta_value as disabled,
           WUCAP.meta_value as USL, {$PLUGIN_LAST_LOGIN_FIELD} as last_login, WUM21.meta_value as last_login_classipress, WUMD.meta_value as removetime
       " . implode(" ", $joins) . "
           WHERE (" .  implode( ') AND (', $conditions_sec2) . ")
@@ -294,7 +350,7 @@ class users {
         $sort_order = 'SUM(WC.comment_approved = 1) DESC, WU.user_login';
         break;
       case 'disabled':
-        $sort_order = 'WUMDIS.meta_value';
+        $sort_order = 'WUMDIS.meta_value, WUMDUL.meta_value DESC';
         break;
       case 'posts':
       default:

@@ -17,15 +17,15 @@
 </tr>
 <tr>
   <td align="center" width=250>
-    <label for="flag_approve_nomatter">
-      <input id="flag_approve_nomatter" type="radio" name="f_approve" value="0" <?php echo empty($_POST['f_approve']) ? 'checked' : '' ?> />
-      <?=__('No matter')?></label>
-    <label for="flag_approve_no">
-      <input id="flag_approve_no" type="radio" name="f_approve" value="no" <?php echo $_POST['f_approve'] === 'no' ? 'checked' : '' ?> />
-      <?=__('No')?></label>
     <label for="flag_approve_yes">
       <input id="flag_approve_yes" type="radio" name="f_approve" value="yes" <?php echo $_POST['f_approve'] == 'yes' ? 'checked' : '' ?> />
-      <?=__('Yes')?></label>
+      <?php echo __('Yes')?></label>
+    <label for="flag_approve_no">
+      <input id="flag_approve_no" type="radio" name="f_approve" value="no" <?php echo $_POST['f_approve'] === 'no' ? 'checked' : '' ?> />
+      <?php echo __('No')?></label>
+    <label for="flag_approve_nomatter">
+      <input id="flag_approve_nomatter" type="radio" name="f_approve" value="0" <?php echo empty($_POST['f_approve']) ? 'checked' : '' ?> />
+      <?php echo __('Ignore')?></label>
   </td>
   <td>
     <?php echo __('... approved comments.')?>
@@ -37,15 +37,15 @@
 ?>
 
   <td align="center">
-    <label for="flag_has_spam_nomatter">
-      <input id="flag_has_spam_nomatter" type="radio" name="has_spam" value="0" <?php echo empty($_POST['has_spam']) ? 'checked' : '' ?> />
-    <?=__('No matter')?></label>
-    <label for="flag_has_spam_no">
-      <input id="flag_has_spam_no" type="radio" name="has_spam" value="no" <?php echo $_POST['has_spam'] === 'no' ? 'checked' : '' ?> />
-    <?=__('No')?></label>
     <label for="flag_has_spam_yes">
       <input id="flag_has_spam_yes" type="radio" name="has_spam" value="yes" <?php echo $_POST['has_spam'] === 'yes' ? 'checked' : '' ?> />
-    <?=__('Yes')?></label>
+    <?php echo __('Yes')?></label>
+    <label for="flag_has_spam_no">
+      <input id="flag_has_spam_no" type="radio" name="has_spam" value="no" <?php echo $_POST['has_spam'] === 'no' ? 'checked' : '' ?> />
+    <?php echo __('No')?></label>
+    <label for="flag_has_spam_nomatter">
+      <input id="flag_has_spam_nomatter" type="radio" name="has_spam" value="0" <?php echo empty($_POST['has_spam']) ? 'checked' : '' ?> />
+    <?php echo __('Ignore')?></label>
   </td>
   <td>
     <?php echo __('... spam comments.')?>
@@ -53,15 +53,15 @@
 </tr>
 <tr>
   <td align="center" valign="top">
-    <label for="flag_has_recs_nomatter">
-      <input id="flag_has_recs_nomatter" type="radio" name="has_recs" value="0" <?php echo empty($_POST['has_recs']) ? 'checked' : '' ?> />
-    <?php echo __('No matter')?></label>
-    <label for="flag_has_recs_no">
-      <input id="flag_has_recs_no" type="radio" name="has_recs" value="no" <?php echo $_POST['has_recs'] === 'no' ? 'checked' : '' ?> />
-    <?php echo __('No')?></label>
     <label for="flag_has_recs_yes">
       <input id="flag_has_recs_yes" type="radio" name="has_recs" value="yes" <?php echo $_POST['has_recs'] === 'yes' ? 'checked' : '' ?> />
     <?php echo __('Yes')?></label>
+    <label for="flag_has_recs_no">
+      <input id="flag_has_recs_no" type="radio" name="has_recs" value="no" <?php echo $_POST['has_recs'] === 'no' ? 'checked' : '' ?> />
+    <?php echo __('No')?></label>
+    <label for="flag_has_recs_nomatter">
+      <input id="flag_has_recs_nomatter" type="radio" name="has_recs" value="0" <?php echo empty($_POST['has_recs']) ? 'checked' : '' ?> />
+    <?php echo __('Ignore')?></label>
   </td>
   <td>
     <?php echo __('... (!Achtung) records or posts.')?><br />
@@ -72,15 +72,15 @@
 <?php if ($woocommerce_active): ?>
 <tr>
   <td align="center" valign="top">
-    <label for="flag_has_orders_nomatter">
-      <input id="flag_has_orders_nomatter" type="radio" name="has_orders" value="0" <?php echo empty($_POST['has_orders']) ? 'checked' : '' ?> />
-    <?=__('No matter')?></label>
-    <label for="flag_has_orders_no">
-      <input id="flag_has_orders_no" type="radio" name="has_orders" value="no" <?php echo $_POST['has_orders'] === 'no' ? 'checked' : '' ?> />
-    <?=__('No')?></label>
     <label for="flag_has_orders_yes">
       <input id="flag_has_orders_yes" type="radio" name="has_orders" value="yes" <?php echo $_POST['has_orders'] === 'yes' ? 'checked' : '' ?> />
-    <?=__('Yes')?></label>
+    <?php echo __('Yes')?></label>
+    <label for="flag_has_orders_no">
+      <input id="flag_has_orders_no" type="radio" name="has_orders" value="no" <?php echo $_POST['has_orders'] === 'no' ? 'checked' : '' ?> />
+    <?php echo __('No')?></label>
+    <label for="flag_has_orders_nomatter">
+      <input id="flag_has_orders_nomatter" type="radio" name="has_orders" value="0" <?php echo empty($_POST['has_orders']) ? 'checked' : '' ?> />
+    <?php echo __('Ignore')?></label>
   </td>
   <td>
     <?php echo __('... <a href="https://wordpress.org/plugins/woocommerce/" target="_blank">woocommerce</a> anonymous orders.')?><br />
@@ -91,15 +91,15 @@
 
 <tr valign="top">
   <td align="center">
-    <label for="flag_userlog_in_nomatter">
-      <input id="flag_userlog_in_nomatter" type="radio" name="f_usereverlogin" value="0" <?php echo empty($_POST['f_usereverlogin']) ? 'checked' : '' ?> />
-      <?=__('No matter')?></label>
-    <label for="flag_userlog_in_no">
-      <input id="flag_userlog_in_no" type="radio" name="f_usereverlogin" value="no" <?php echo $_POST['f_usereverlogin'] === 'no' ? 'checked' : '' ?> />
-      <?=__('No')?></label>
     <label for="flag_userlog_in_yes">
       <input id="flag_userlog_in_yes" type="radio" name="f_usereverlogin" value="yes" <?php echo $_POST['f_usereverlogin'] === 'yes' ? 'checked' : '' ?> />
-      <?=__('Yes')?></label>
+      <?php echo __('Yes')?></label>
+    <label for="flag_userlog_in_no">
+      <input id="flag_userlog_in_no" type="radio" name="f_usereverlogin" value="no" <?php echo $_POST['f_usereverlogin'] === 'no' ? 'checked' : '' ?> />
+      <?php echo __('No')?></label>
+    <label for="flag_userlog_in_nomatter">
+      <input id="flag_userlog_in_nomatter" type="radio" name="f_usereverlogin" value="0" <?php echo empty($_POST['f_usereverlogin']) ? 'checked' : '' ?> />
+      <?php echo __('Ignore')?></label>
   </td>
   <td>
     <?php echo __('... known date log-in.')?> <br />
@@ -113,19 +113,19 @@
 
 <tr valign="top">
   <td align="center">
-    <label for="flag_userdisabled_nomatter">
-      <input id="flag_userdisabled_nomatter" type="radio" name="f_userdisabled" value="0" <?php echo empty($_POST['f_userdisabled']) ? 'checked' : '' ?> />
-      <?=__('No matter')?></label>
-    <label for="flag_userdisabled_no">
-      <input id="flag_userdisabled_no" type="radio" name="f_userdisabled" value="no" <?php echo $_POST['f_userdisabled'] === 'no' ? 'checked' : '' ?> />
-      <?=__('No')?></label>
     <label for="flag_userdisabled_yes">
       <input id="flag_userdisabled_yes" type="radio" name="f_userdisabled" value="yes" <?php echo $_POST['f_userdisabled'] === 'yes' ? 'checked' : '' ?> />
-      <?=__('Yes')?></label>
+      <?php echo __('Yes')?></label>
+    <label for="flag_userdisabled_no">
+      <input id="flag_userdisabled_no" type="radio" name="f_userdisabled" value="no" <?php echo $_POST['f_userdisabled'] === 'no' ? 'checked' : '' ?> />
+      <?php echo __('No')?></label>
+    <label for="flag_userdisabled_nomatter">
+      <input id="flag_userdisabled_nomatter" type="radio" name="f_userdisabled" value="0" <?php echo empty($_POST['f_userdisabled']) ? 'checked' : '' ?> />
+      <?php echo __('Ignore')?></label>
   </td>
   <td>
     <?php echo __('... been disabled.')?> <br />
-    <small><?php echo __('This is not a native WP feature. Plugin can disable user account instead of deletion. Disabling feature works until you enable user or turn the plugin off.')?></small>
+    <small><?php echo __('This is not a native WP feature. Plugin can disable user account instead of deletion. It is also compatible with plugin <a href="https://wordpress.org/plugins/disable-user-login/" target="_blank">Disable User Login</a>. Disabling feature works until you enable user or turn the plugin off.')?></small>
   </td>
 </tr>
 

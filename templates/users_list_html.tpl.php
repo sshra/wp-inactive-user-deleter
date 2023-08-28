@@ -80,7 +80,9 @@
         //last_login_classipress date preferable
         $last_login = $UR['last_login_classipress'] ? strtotime($UR['last_login_classipress']) : $UR['last_login'];
 
-        $status = $UR['disabled_time'] ? __('blocked') . date(' [d M Y]', $UR['disabled_time']) : __('active');
+        $status = $UR['disabled_time'] || $UR['disabled']
+          ? ( __('blocked') . ($UR['disabled_time'] ? date(' [d M Y]', $UR['disabled_time']) : '' ))
+          : __('active');
 
         echo "</td>\n<td align=\"left\">{$login}</td>"
           . "<td align=\"left\">$UR[mail]</td>"
