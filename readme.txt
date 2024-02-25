@@ -1,6 +1,6 @@
 === Inactive User Deleter ===
 Contributors: shra
-Donate link: https://yoomoney.ru/to/410011969010464
+Donate link: https://pay.cryptocloud.plus/pos/Oc9ieI6Eb5HWPptn
 Tags: user management, inactive user, delete user, user deleter, user, managment, users managment, delete, multy removal, pack deletion, user cleaner
 Requires at least: 3.1.0
 Tested up to: 6.4
