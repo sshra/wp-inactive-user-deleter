@@ -183,7 +183,7 @@ class users {
       );
 
       $havings = array();
-      $groupBy = array('WU.ID, WU.user_login, WU.user_email, WU.user_url, WU.user_registered, WU.display_name, WUCAP.meta_value, WUM21.meta_value, WUMD.meta_value, WUMDIS.meta_value, WUMDUL.meta_value');
+      $groupBy = array('WU.ID, WU.user_login, WU.user_email, WU.user_url, WU.user_registered, WU.user_activation_key, WU.display_name, WUCAP.meta_value, WUM21.meta_value, WUMD.meta_value, WUMDIS.meta_value, WUMDUL.meta_value');
 
       if (!empty($ARGS['f_approve'])) {
         //user with approved comments
@@ -235,6 +235,15 @@ class users {
           //ignore user with posts
           $conditions[] = "NOT EXISTS (SELECT * FROM {$wpdb->prefix}posts WP WHERE WP.post_author = WU.ID
             AND NOT WP.post_type in ('attachment', 'revision') AND WP.post_status = 'publish')";
+        }
+      }
+
+      if (!empty($ARGS['is_pending'])) {
+
+        if ($ARGS['is_pending'] === 'yes') {
+          $conditions[] = 'LENGTH(WU.user_activation_key) > 0';
+        } else {
+          $conditions[] = 'LENGTH(WU.user_activation_key) = 0';
         }
       }
 
@@ -318,7 +327,7 @@ class users {
       //first action - comments published
       $query = "
         SELECT SQL_CALC_FOUND_ROWS SUM(WC.comment_approved = 1) as approved, SUM(WC.comment_approved = 'spam') as spam,
-          WU.ID, WU.user_login as login, WU.user_email as mail, WU.user_url as url, WU.user_registered as dt_reg, WU.display_name as name,
+          WU.ID, WU.user_login as login, WU.user_email as mail, WU.user_url as url, WU.user_registered as dt_reg, LENGTH(WU.user_activation_key) as act_key_len, WU.display_name as name,
           WUMDIS.meta_value as disabled_time,
           WUMDUL.meta_value as disabled,
           WUCAP.meta_value as USL, {$PLUGIN_LAST_LOGIN_FIELD} as last_login, WUM21.meta_value as last_login_classipress, WUMD.meta_value as removetime

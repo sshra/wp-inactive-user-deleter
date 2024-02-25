@@ -2,12 +2,12 @@
 /*
 Plugin Name: Inactive User Deleter
 Plugin URI: https://wordpress.org/plugins/inactive-user-deleter/
-Version: 1.63
+Version: 1.64
 Requires at least: 3.1.0
 Description: When your project lives so long, and website got a lot of fake user's registrations (usually made by spammers, bots, etc). This tool will help you to clean this mess up. You can filter, select and delete users.
 Author: Korol Yuriy aka Shra <to@shra.ru>
 Author URI: https://shra.ru
-Donate link: https://www.paypal.me/YuriyKing
+Donate link: https://pay.cryptocloud.plus/pos/Oc9ieI6Eb5HWPptn
 Tags: user, managment, users managment, delete, multy removal, pack deletion, user cleaner
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ namespace inactive_user_deleter;
 if (!class_exists('InactiveUserDeleter')) {
 class InactiveUserDeleter
 {
-	const actual_version = 1.63;
+	const actual_version = 1.64;
 	const status = 'production';
 	var $ss2_active = null;
   var $woocommerce_active = null;

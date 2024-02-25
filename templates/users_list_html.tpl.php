@@ -86,7 +86,7 @@
 
         echo "</td>\n<td align=\"left\">{$login}</td>"
           . "<td align=\"left\">$UR[mail]</td>"
-          . "<td align=\"left\">{$status}</td>"
+          . "<td align=\"left\">{$status}" . ($UR['act_key_len'] ? ' [pending]' : '') . "</td>"
           . "<td align=\"left\">$UR[name]</td>"
           . "</td><td>" . (is_array($UR['USL']) && !empty($UR['USL']) ? implode(', ', array_keys($UR['USL'])) : '-') . "</td><td>"
           . date('d M Y', strtotime($UR['dt_reg'])) . "</td>"

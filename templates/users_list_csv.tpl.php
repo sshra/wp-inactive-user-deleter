@@ -38,7 +38,7 @@
       $i,
       $login,
       $UR['mail'],
-      $status,
+      $status . ($UR['act_key_len'] ? ' [pending]' : ''),
       $UR['name'],
       is_array($UR['USL']) && !empty($UR['USL']) ? implode(', ', array_keys($UR['USL'])) : '-',
       date('Y-m-d', strtotime($UR['dt_reg'])),
@@ -52,4 +52,3 @@
   }
 
   fclose($outputHandler);
-

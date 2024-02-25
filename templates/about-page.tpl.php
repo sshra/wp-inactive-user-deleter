@@ -30,6 +30,7 @@
         .  ' <a href="https://wordpress.org/support/plugin/inactive-user-deleter/" target="_blank">' . __('Get Support') . '</a>.'
     ?>
     </p>
+    <p><a target="_blank" title="Thank you, Shra" href="https://pay.cryptocloud.plus/pos/Oc9ieI6Eb5HWPptn">Donations via crypticloud</a></p>
     <h3>Bitcoin Wallet Address (for donations)</h3>
     <pre>
 bc1q75h2apyfk9vwr30849pdr33cq8pje04ypkcse5

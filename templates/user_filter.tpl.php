@@ -129,6 +129,23 @@
   </td>
 </tr>
 
+<tr>
+  <td align="center">
+    <label>
+      <input type="radio" name="is_pending" value="yes" <?php echo $_POST['is_pending'] === 'yes' ? 'checked' : '' ?> />
+    <?php echo __('Yes')?></label>
+    <label>
+      <input type="radio" name="is_pending" value="no" <?php echo $_POST['is_pending'] === 'no' ? 'checked' : '' ?> />
+    <?php echo __('No')?></label>
+    <label>
+      <input type="radio" name="is_pending" value="0" <?php echo empty($_POST['is_pending']) ? 'checked' : '' ?> />
+    <?php echo __('Ignore')?></label>
+  </td>
+  <td>
+    <?php echo __('... pending status. It means that user created an account and special email has been sent to reset password, but user still hasn\'t reset password.')?>
+  </td>
+</tr>
+
 <tr valign="top">
   <td colspan="2">
     <div class="section-title"><?=__('Filters')?></div>
