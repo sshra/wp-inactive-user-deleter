@@ -3,8 +3,8 @@ Contributors: shra
 Donate link: https://pay.cryptocloud.plus/pos/Oc9ieI6Eb5HWPptn
 Tags: user management, inactive user, delete user, user deleter, user, managment, users managment, delete, multy removal, pack deletion, user cleaner
 Requires at least: 3.1.0
-Tested up to: 6.4
-Stable tag: 1.64
+Tested up to: 6.5
+Stable tag: 1.65
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,8 @@ Please feel free to ask here: https://wordpress.org/support/plugin/inactive-user
 
 == Changelog ==
 
+= 1.65 = Fix for trial user feature (reported by @yuvrajsisodia).
+Also I added flag: "user has name" into filter (requested by @mypersonalwebmaster).
 = 1.64 = New search condition has been added - pending users (Requested by @tradenet).
 = 1.63 = Compatibilty with plugin Disable User Login was added, and some cosmetic changes (thanks to @wbenterprises for ideas).
 = 1.62 = Minor changes and fixes, testing with next core version of WP 6.3, and update discussed with @timmoser: now PHP max_input_vars limitation is not an issue.

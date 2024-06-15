@@ -178,6 +178,8 @@ class users {
         "LEFT JOIN {$wpdb->prefix}comments WC ON WC.user_id = WU.ID",
         "LEFT JOIN {$wpdb->prefix}usermeta WUCAP ON WUCAP.user_id = WU.ID AND WUCAP.meta_key = 'wp_capabilities'",
         "LEFT JOIN {$wpdb->prefix}usermeta WUMD ON WUMD.user_id = WU.ID AND WUMD.meta_key = '_IUD_deltime'",
+        "LEFT JOIN {$wpdb->prefix}usermeta WUFN ON WUFN.user_id = WU.ID AND WUFN.meta_key = 'first_name'",
+        "LEFT JOIN {$wpdb->prefix}usermeta WULN ON WULN.user_id = WU.ID AND WULN.meta_key = 'last_name'",
         "LEFT JOIN {$wpdb->prefix}usermeta WUMDIS ON WUMDIS.user_id = WU.ID AND WUMDIS.meta_key = '_IUD_userBlockedTime'",
         "LEFT JOIN {$wpdb->prefix}usermeta WUMDUL ON WUMDUL.user_id = WU.ID AND WUMDUL.meta_key = '" . self::$disabled_user_login_key . "'"
       );
@@ -244,6 +246,14 @@ class users {
           $conditions[] = 'LENGTH(WU.user_activation_key) > 0';
         } else {
           $conditions[] = 'LENGTH(WU.user_activation_key) = 0';
+        }
+      }
+
+      if (!empty($ARGS['has_name'])) {
+        if ($ARGS['has_name'] === 'yes') {
+          $conditions[] = 'LENGTH(WUFN.meta_value) + LENGTH(WULN.meta_value) > 0';
+        } else {
+          $conditions[] = 'LENGTH(WUFN.meta_value) + LENGTH(WULN.meta_value) = 0';
         }
       }
 

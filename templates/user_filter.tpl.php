@@ -53,6 +53,23 @@
 </tr>
 <tr>
   <td align="center" valign="top">
+    <label for="flag_has_name_yes">
+      <input id="flag_has_name_yes" type="radio" name="has_name" value="yes" <?php echo $_POST['has_name'] === 'yes' ? 'checked' : '' ?> />
+    <?php echo __('Yes')?></label>
+    <label for="flag_has_name_no">
+      <input id="flag_has_name_no" type="radio" name="has_name" value="no" <?php echo $_POST['has_name'] === 'no' ? 'checked' : '' ?> />
+    <?php echo __('No')?></label>
+    <label for="flag_has_name_nomatter">
+      <input id="flag_has_name_nomatter" type="radio" name="has_name" value="0" <?php echo empty($_POST['has_name']) ? 'checked' : '' ?> />
+    <?php echo __('Ignore')?></label>
+  </td>
+  <td>
+    <?php echo __('... name.')?><br />
+    <small><?php echo __('First or last name were provided by user.'); ?></small>
+  </td>
+</tr>
+<tr>
+  <td align="center" valign="top">
     <label for="flag_has_recs_yes">
       <input id="flag_has_recs_yes" type="radio" name="has_recs" value="yes" <?php echo $_POST['has_recs'] === 'yes' ? 'checked' : '' ?> />
     <?php echo __('Yes')?></label>
